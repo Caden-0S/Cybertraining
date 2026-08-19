@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cybertraining - Practice</title>
+  <link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand-mini"><span class="brand-mark"></span>Cybertraining</div>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="../index.html">Home</a>
+      <a href="networking-protocols.html">Networking</a>
+      <a href="mitre.html">MITRE</a>
+      <a href="cyber-kill-chains.html">Kill Chain</a>
+      <a href="web-vulnerabilities-exploits.html">Web Exploits</a>
+      <a href="labs.html">Labs</a>
+      <a href="practice.html">Practice</a>
+    </nav>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">Light</button>
+  </div>
+
+  <main class="page-shell">
+    <section class="page-hero">
+      <div>
+        <div class="pill">Interview preparation</div>
+        <h1>Practice</h1>
+        <p>Turn knowledge into concise analyst answers. Use these prompts to rehearse how you would investigate, communicate, and recommend action.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Explain the alert</h2>
+      <p>Describe how you would triage a suspicious PowerShell alert from first signal to confirmed or dismissed incident.</p>
+      <ul>
+        <li>What context would you gather?</li>
+        <li>Which related events would you correlate?</li>
+        <li>How would you communicate confidence and impact?</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Map the behavior</h2>
+      <p>Choose one behavior from the topic pages and explain its tactic, technique, evidence sources, and likely defensive control.</p>
+      <ul>
+        <li>State the attacker objective in plain language.</li>
+        <li>Name the telemetry that supports the mapping.</li>
+        <li>Suggest one prevention and one detection measure.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Practice notes</h2>
+      <p>Draft interview answers, questions to revisit, and examples you want to explain more clearly.</p>
+      <div class="notes-panel" data-notes-key="practice">
+        <textarea class="notes-input" placeholder="Write your practice notes here..." aria-label="Practice notes"></textarea>
+        <div class="notes-actions"><button class="notes-save" type="button">Save notes</button><span class="notes-status" aria-live="polite"></span></div>
+      </div>
+    </section>
+  </main>
+  <script src="../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ATT&CK Console — Enterprise Study Tracker</title>
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand-mini"><span class="brand-mark"></span>Cybertraining</div>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="pages/networking-protocols.html">Networking</a>
+      <a href="pages/mitre.html">MITRE</a>
+      <a href="pages/cyber-kill-chains.html">Kill Chain</a>
+      <a href="pages/web-vulnerabilities-exploits.html">Web Exploits</a>
+      <a href="pages/labs.html">Labs</a>
+      <a href="pages/practice.html">Practice</a>
+    </nav>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">☀️ Light</button>
+  </div>
+
+<div class="wrap">
+  <section class="page-hero">
+    <div>
+      <div class="brand-eyebrow"><span class="dot"></span>ENTERPRISE MATRIX · LIVE STUDY SESSION</div>
+      <h1>ATT&CK<span> Console</span></h1>
+      <p>Browse and drill the 14 Enterprise tactics for your Level 1 cyber analyst interview. Track your progress, test your recall, and learn the MITRE lifecycle in plain English.</p>
+      <div class="hero-actions">
+        <a class="primary-button" href="#browse-view">Open tracker</a>
+        <a class="secondary-button" href="pages/mitre.html">Read MITRE guide</a>
+      </div>
+      <div class="quick-stats">
+        <div class="quick-stat"><span class="label">Tactics</span><span class="value">14</span></div>
+        <div class="quick-stat"><span class="label">Techniques</span><span class="value">80+</span></div>
+        <div class="quick-stat"><span class="label">Focus</span><span class="value">Interview prep</span></div>
+      </div>
+    </div>
+  </section>
+
+  <header>
+    <div>
+      <div class="brand-eyebrow"><span class="dot"></span>Progress tracker</div>
+      <div class="subtitle">Study the ATT&CK lifecycle and keep moving from reconnaissance to impact.</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-nums">
+        <div><b id="stat-studied">0</b> / <span id="stat-total">0</span> techniques studied</div>
+        <div><b id="stat-quiz">0</b> quiz questions answered</div>
+        <div><b id="stat-acc">—</b> quiz accuracy</div>
+      </div>
+      <div class="ring">
+        <svg viewBox="0 0 74 74">
+          <circle class="ring-bg" cx="37" cy="37" r="30"></circle>
+          <circle class="ring-fg" id="ring-fg" cx="37" cy="37" r="30" stroke-dasharray="188.5" stroke-dashoffset="188.5"></circle>
+        </svg>
+        <div class="ring-label" id="ring-label">0%</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="rail-section">
+    <div class="rail-title">Kill Chain Progression — click a stage to jump in</div>
+    <div class="rail" id="rail"></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="browse">▸ Browse</button>
+    <button class="tab-btn" data-tab="quiz">▸ Quiz</button>
+  </div>
+
+  <div id="browse-view">
+    <div class="controls">
+      <input class="search-box" id="search" placeholder="Search technique name, ID, or keyword…">
+      <button class="filter-chip active" id="filter-all">All tactics</button>
+      <button class="filter-chip" id="filter-unstudied">Unstudied only</button>
+    </div>
+    <div id="tactic-heading-block"></div>
+    <div class="grid" id="grid"></div>
+    <div class="empty-note" id="empty-note" style="display:none;">No techniques match that search.</div>
+  </div>
+
+  <div id="quiz-view" style="display:none;">
+    <div class="quiz-wrap">
+      <div class="quiz-score">
+        <span>Session score: <b id="qs-correct">0</b> / <span id="qs-total">0</span></span>
+        <button class="filter-chip" id="qz-reset">Reset session</button>
+      </div>
+      <div class="quiz-card">
+        <div class="quiz-kicker" id="qz-kicker">Question type</div>
+        <div class="quiz-prompt" id="qz-prompt">Loading…</div>
+        <div class="quiz-options" id="qz-options"></div>
+        <div class="quiz-explain" id="qz-explain"></div>
+        <button class="quiz-next" id="qz-next">Next question →</button>
+      </div>
+      <div class="quiz-progressbar"><div id="qz-bar" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <footer>MITRE ATT&CK® is a trademark of The MITRE Corporation. Data condensed for study purposes — verify against attack.mitre.org before your interview.</footer>
+</div>
+
+<script src="assets/js/site.js"></script>
+</body>
+</html>

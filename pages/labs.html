@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cybertraining - Labs</title>
+  <link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand-mini"><span class="brand-mark"></span>Cybertraining</div>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="../index.html">Home</a>
+      <a href="networking-protocols.html">Networking</a>
+      <a href="mitre.html">MITRE</a>
+      <a href="cyber-kill-chains.html">Kill Chain</a>
+      <a href="web-vulnerabilities-exploits.html">Web Exploits</a>
+      <a href="labs.html">Labs</a>
+      <a href="practice.html">Practice</a>
+    </nav>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">Light</button>
+  </div>
+
+  <main class="page-shell">
+    <section class="page-hero">
+      <div>
+        <div class="pill">Hands-on investigation</div>
+        <h1>Labs</h1>
+        <p>Work through short analyst scenarios. Identify the behavior, map it to a framework, and explain what evidence would confirm your hypothesis.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Lab 1: Suspicious login sequence</h2>
+      <p>A finance user signs in from a new country at 02:00. Minutes later, PowerShell runs and a scheduled task appears. Identify the likely access, execution, and persistence behaviors.</p>
+      <ul>
+        <li>Which identity and endpoint logs would you check first?</li>
+        <li>What would distinguish a compromised account from a false positive?</li>
+        <li>Which containment action should happen first?</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Lab 2: DNS beaconing</h2>
+      <p>An endpoint resolves high-entropy domains at a regular interval and makes rare outbound HTTPS connections. Investigate whether the pattern suggests command and control.</p>
+      <ul>
+        <li>Compare interval, jitter, volume, and domain age.</li>
+        <li>Correlate DNS, proxy, and endpoint process telemetry.</li>
+        <li>Record the indicators you would block or hunt.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Lab notes</h2>
+      <p>Keep a short investigation record for each scenario, including evidence, hypotheses, and next actions.</p>
+      <div class="notes-panel" data-notes-key="labs">
+        <textarea class="notes-input" placeholder="Write your lab findings here..." aria-label="Labs notes"></textarea>
+        <div class="notes-actions"><button class="notes-save" type="button">Save notes</button><span class="notes-status" aria-live="polite"></span></div>
+      </div>
+    </section>
+  </main>
+  <script src="../assets/js/site.js"></script>
+</body>
+</html>

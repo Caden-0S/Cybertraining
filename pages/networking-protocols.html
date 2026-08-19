@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cybertraining – Networking Protocols</title>
+  <link rel="stylesheet" href="../assets/css/site.css">
+  <style>
+    body { padding: 40px 20px; }
+    .page-shell { max-width: 980px; margin: 0 auto; }
+    .nav { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+    .nav a { color: var(--text); text-decoration: none; border: 1px solid var(--border); background: var(--panel); padding: 8px 12px; border-radius: 8px; }
+    .card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 28px; margin-bottom: 18px; }
+    h1, h2, h3 { font-family: var(--mono); }
+    p, li { color: var(--text-dim); line-height: 1.7; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .mini { background: var(--panel-2); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+    .pill { display: inline-block; padding: 5px 10px; border-radius: 999px; background: rgba(95,168,224,.1); color: var(--blue); font-family: var(--mono); font-size: 11px; margin-bottom: 12px; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand-mini"><span class="brand-mark"></span>Cybertraining</div>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="../index.html">Home</a>
+      <a href="networking-protocols.html">Networking</a>
+      <a href="mitre.html">MITRE</a>
+      <a href="cyber-kill-chains.html">Kill Chain</a>
+      <a href="web-vulnerabilities-exploits.html">Web Exploits</a>
+    </nav>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">☀️ Light</button>
+  </div>
+
+  <div class="page-shell">
+    <div class="page-hero">
+      <div>
+        <div class="pill">Networking</div>
+        <h1>Networking Protocols</h1>
+        <p>Networking protocols are the rules that govern how computers talk to each other. In security work, understanding the protocol stack helps you identify unusual traffic, weak handshakes, spoofing, and protocol abuse.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Core concepts</h2>
+      <div class="grid">
+        
+        <div class="mini">
+          <h3>TCP/IP</h3>
+          <p>The TCP/IP suite is the foundation of modern networking. IP handles addressing and routing, while TCP provides reliable, ordered data delivery and UDP provides low-overhead connectionless transfer.</p>
+        </div>
+      
+        <div class="mini">
+          <h3>DNS</h3>
+          <p>DNS converts names to IPs and is often abused for command-and-control, data exfiltration, and domain generation. Look for odd query patterns, high-volume lookups, and suspicious TLDs.</p>
+        </div>
+      
+        <div class="mini">
+          <h3>HTTP/HTTPS</h3>
+          <p>HTTP is the application layer protocol used by web traffic. HTTPS adds TLS encryption, making protocol inspection harder but not impossible when TLS termination or analytics are enabled.</p>
+        </div>
+      
+        <div class="mini">
+          <h3>ARP and Layer 2</h3>
+          <p>ARP maps IP to MAC addresses and can be abused in local network attacks such as ARP poisoning. Security analysts look for duplicate responses, strange broadcasts, and unexpected gateway changes.</p>
+        </div>
+      
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>My notes</h2>
+      <p>Capture protocol clues, detection ideas, and interview examples as you study.</p>
+      <div class="notes-panel" data-notes-key="networking-protocols">
+        <textarea class="notes-input" placeholder="Write your networking notes here..." aria-label="Networking Protocols notes"></textarea>
+        <div class="notes-actions"><button class="notes-save" type="button">Save notes</button><span class="notes-status" aria-live="polite"></span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Key takeaways</h2>
+      <ul>
+        <li>TCP provides reliability; UDP is faster and lighter.</li><li>DNS is often the easiest place to spot attacker infrastructure.</li><li>TLS hides payload content but not all metadata patterns.</li><li>Switching, routing, and segmentation reduce lateral movement risk.</li>
+      </ul>
+    </div>
+  </div>
+  <script src="../assets/js/site.js"></script>
+</body>
+</html>
