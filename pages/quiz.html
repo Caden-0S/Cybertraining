@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cybertraining - Quiz</title>
+  <link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand-mini"><span class="brand-mark"></span>Cybertraining</div>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="../index.html">Home</a>
+      <a href="networking-protocols.html">Networking</a>
+      <a href="mitre.html">MITRE</a>
+      <a href="cyber-kill-chains.html">Kill Chain</a>
+      <a href="web-vulnerabilities-exploits.html">Web Exploits</a>
+      <a href="labs.html">Labs</a>
+      <a href="practice.html">Practice</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="flashcards.html">Flashcards</a>
+    </nav>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">☀️ Light</button>
+  </div>
+
+  <main class="page-shell">
+    <section class="page-hero">
+      <div>
+        <div class="pill">Quick review</div>
+        <h1>Study Quiz</h1>
+        <p>Test your recall across networking, MITRE, web vulnerabilities, and the attack lifecycle. Answer each question, then use the explanation to reinforce the concept.</p>
+      </div>
+    </section>
+
+    <section class="study-card">
+      <div class="quiz-scorebar">
+        <div><strong id="quiz-score">0</strong> / <span id="quiz-total">0</span> correct</div>
+        <button class="filter-chip" id="reset-quiz" type="button">Reset score</button>
+      </div>
+
+      <div class="study-quiz-label" id="quiz-topic">Question</div>
+      <h2 class="study-quiz-prompt" id="quiz-prompt">Loading question…</h2>
+
+      <div class="study-quiz-options" id="quiz-options"></div>
+
+      <div class="study-quiz-explain" id="quiz-explain"></div>
+
+      <div class="study-quiz-controls">
+        <div class="study-quiz-actions">
+          <button class="study-quiz-btn secondary" id="new-question" type="button">New question</button>
+          <button class="study-quiz-btn" id="submit-answer" type="button" style="display:none;">Check answer</button>
+        </div>
+      </div>
+
+      <div class="study-quiz-progress" aria-label="Quiz progress">
+        <span id="quiz-progress-bar" style="width:0%"></span>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>What this quiz covers</h2>
+      <ul>
+        <li>Networking essentials such as TCP, DNS, DHCP, and HTTP/HTTPS.</li>
+        <li>MITRE ATT&CK tactics and techniques across the attack lifecycle.</li>
+        <li>Web weaknesses like SQL injection, XSS, and broken access control.</li>
+        <li>Analyst reasoning for kill chains, labs, and practice questions.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Quick notes</h2>
+      <p>Keep a short reminder of concepts that keep tripping you up.</p>
+      <div class="notes-panel" data-notes-key="quiz">
+        <textarea class="notes-input" placeholder="Write your quiz reflections here..." aria-label="Quiz notes"></textarea>
+        <div class="notes-actions"><button class="notes-save" type="button">Save notes</button><span class="notes-status" aria-live="polite"></span></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../assets/js/site.js"></script>
+  <script>
+    const STUDY_QUESTIONS = [
+      { topic: 'MITRE', prompt: 'A malicious actor gains access by sending a deceptive email with a link to a fake login page. Which ATT&CK tactic best matches this behavior?', options: ['Reconnaissance', 'Initial Access', 'Credential Access', 'Exfiltration'], answer: 'Initial Access', explain: 'Phishing is a classic Initial Access technique because it is used to get the attacker a foothold in the target environment.' },
+      { topic: 'Networking', prompt: 'Which protocol is most commonly abused for DNS-based command and control or exfiltration?', options: ['SMTP', 'DNS', 'DHCP', 'ICMP'], answer: 'DNS', explain: 'DNS enables name resolution and can hide malicious traffic in large volumes of lookups or suspicious domains.' },
+      { topic: 'Kill Chain', prompt: 'Which stage comes immediately after a payload is delivered to a victim and executed?', options: ['Installation', 'Weaponization', 'Exploitation', 'Delivery'], answer: 'Exploitation', explain: 'Once the malicious file reaches the victim, exploitation occurs when the code or vulnerability is triggered to establish execution.' },
+      { topic: 'Web Security', prompt: 'What is the primary concern with SQL injection?', options: ['It modifies DNS cache entries', 'It injects malicious JavaScript into browsers', 'It can alter database queries and expose data', 'It causes ARP poisoning'], answer: 'It can alter database queries and expose data', explain: 'SQL injection manipulates application queries so attackers can read, modify, or delete sensitive data.' },
+      { topic: 'Responder mindset', prompt: 'A user receives a suspicious attachment that triggers PowerShell. What is the best first response?', options: ['Ignore it if the user is not an admin', 'Isolate the host and collect relevant logs', 'Delete the email without checking the host', 'Reboot the machine immediately'], answer: 'Isolate the host and collect relevant logs', explain: 'Containment should begin with isolation and timeline gathering so analysts can assess impact and scope.' },
+      { topic: 'MITRE', prompt: 'Which of the following best describes persistence?', options: ['Encrypting data before exfiltration', 'Maintaining access after a reboot', 'Mapping network routes', 'Cracking a password by guessing'], answer: 'Maintaining access after a reboot', explain: 'Persistence keeps an attacker’s foothold alive so they can continue operating even after system restarts.' },
+      { topic: 'Networking', prompt: 'Why is HTTPS still important to investigate even though it encrypts traffic?', options: ['It hides all traffic details completely', 'It removes the need for logs', 'It still leaks metadata like timing, destination, and volume', 'It prevents all web attacks'], answer: 'It still leaks metadata like timing, destination, and volume', explain: 'Encryption protects payload contents, but metadata such as domains, sizes, and intervals can still reveal suspicious behavior.' },
+      { topic: 'Web Security', prompt: 'Which vulnerability usually involves executing attacker-controlled script in a user’s browser?', options: ['Broken access control', 'XSS', 'DHCP snooping', 'ARP poisoning'], answer: 'XSS', explain: 'Cross-site scripting injects browser-executable JavaScript into trusted pages or user interactions.' },
+      { topic: 'Detection', prompt: 'What is the best reason to map suspicious behavior to ATT&CK?', options: ['It guarantees a breach is real', 'It helps analysts describe the adversary behavior and plan detection', 'It replaces the need for logs', 'It lets you skip patching'], answer: 'It helps analysts describe the adversary behavior and plan detection', explain: 'ATT&CK gives defenders a common language to connect behaviors, telemetry, and defensive guidance.' },
+      { topic: 'Fundamentals', prompt: 'Which item is the strongest example of defense-in-depth?', options: ['Only using a single antivirus tool', 'Applying segmentation, monitoring, patching, and user awareness together', 'Blocking all outbound HTTPS', 'Ignoring unusual DNS traffic'], answer: 'Applying segmentation, monitoring, patching, and user awareness together', explain: 'Defense-in-depth layers multiple controls so one failure does not leave the environment fully exposed.' }
+    ];
+
+    let questionPool = [...STUDY_QUESTIONS];
+    let currentQuestion = null;
+    let answered = false;
+    let score = 0;
+    let total = 0;
+
+    function shuffleArray(items) {
+      const copy = [...items];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function pickQuestion() {
+      if (!questionPool.length) {
+        questionPool = [...STUDY_QUESTIONS];
+      }
+      const next = questionPool.pop();
+      currentQuestion = next;
+      answered = false;
+      document.getElementById('submit-answer').style.display = 'inline-flex';
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      const promptEl = document.getElementById('quiz-prompt');
+      const topicEl = document.getElementById('quiz-topic');
+      const optionsEl = document.getElementById('quiz-options');
+      const explainEl = document.getElementById('quiz-explain');
+
+      topicEl.textContent = currentQuestion.topic;
+      promptEl.textContent = currentQuestion.prompt;
+      optionsEl.innerHTML = '';
+      explainEl.classList.remove('show');
+      explainEl.innerHTML = '';
+
+      shuffleArray(currentQuestion.options).forEach((option) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'study-option';
+        button.textContent = option;
+        button.addEventListener('click', () => selectAnswer(button, option));
+        optionsEl.appendChild(button);
+      });
+
+      document.getElementById('quiz-score').textContent = score;
+      document.getElementById('quiz-total').textContent = total;
+      document.getElementById('quiz-progress-bar').style.width = total ? Math.min(100, (score / total) * 100) + '%' : '0%';
+    }
+
+    function selectAnswer(button, selected) {
+      if (answered) return;
+      answered = true;
+      const optionButtons = document.querySelectorAll('.study-option');
+      optionButtons.forEach((node) => {
+        node.disabled = true;
+        if (node.textContent === currentQuestion.answer) {
+          node.classList.add('correct');
+        }
+        if (node.textContent === selected && selected !== currentQuestion.answer) {
+          node.classList.add('wrong');
+        }
+      });
+
+      total += 1;
+      const correct = selected === currentQuestion.answer;
+      if (correct) {
+        score += 1;
+      }
+
+      const explainEl = document.getElementById('quiz-explain');
+      explainEl.innerHTML = (correct ? '<strong style="color: var(--green)">Correct.</strong> ' : '<strong style="color: var(--red)">Not quite.</strong> ') + currentQuestion.explain;
+      explainEl.classList.add('show');
+      document.getElementById('quiz-score').textContent = score;
+      document.getElementById('quiz-total').textContent = total;
+      document.getElementById('quiz-progress-bar').style.width = total ? Math.min(100, (score / total) * 100) + '%' : '0%';
+      document.getElementById('submit-answer').style.display = 'none';
+    }
+
+    function resetQuiz() {
+      score = 0;
+      total = 0;
+      questionPool = [...STUDY_QUESTIONS];
+      pickQuestion();
+    }
+
+    document.getElementById('reset-quiz').addEventListener('click', resetQuiz);
+    document.getElementById('new-question').addEventListener('click', pickQuestion);
+    document.getElementById('submit-answer').addEventListener('click', () => {
+      if (!currentQuestion || answered) return;
+      const selected = document.querySelector('.study-option:focus')?.textContent || document.querySelector('.study-option')?.textContent;
+      if (!selected) return;
+      selectAnswer(document.querySelector('.study-option'), selected);
+    });
+
+    pickQuestion();
+  </script>
+</body>
+</html>

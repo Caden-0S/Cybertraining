@@ -17,6 +17,8 @@
       <a href="web-vulnerabilities-exploits.html">Web Exploits</a>
       <a href="labs.html">Labs</a>
       <a href="practice.html">Practice</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="flashcards.html">Flashcards</a>
     </nav>
     <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">Light</button>
   </div>
@@ -26,27 +28,53 @@
       <div>
         <div class="pill">Hands-on investigation</div>
         <h1>Labs</h1>
-        <p>Work through short analyst scenarios. Identify the behavior, map it to a framework, and explain what evidence would confirm your hypothesis.</p>
+        <p>Work through short analyst scenarios, map behavior to frameworks, and explain what evidence would confirm or dismiss a hypothesis. Good incident analysis is not only about spotting the symptom; it is about proving the story from the telemetry.</p>
       </div>
     </section>
 
     <section class="card">
       <h2>Lab 1: Suspicious login sequence</h2>
-      <p>A finance user signs in from a new country at 02:00. Minutes later, PowerShell runs and a scheduled task appears. Identify the likely access, execution, and persistence behaviors.</p>
+      <p>A finance user signs in from a new country at 02:00. Minutes later, PowerShell runs and a scheduled task appears. This pattern is consistent with account takeover followed by execution and persistence. Analysts should review identity, endpoint, and process telemetry together.</p>
       <ul>
         <li>Which identity and endpoint logs would you check first?</li>
+        <li>Would you treat this as valid account abuse, malware execution, or both?</li>
         <li>What would distinguish a compromised account from a false positive?</li>
         <li>Which containment action should happen first?</li>
       </ul>
+      <p><strong>Reasoning:</strong> The sequence suggests a likely initial access or credential compromise, then execution via PowerShell, and possible persistence using a scheduled task. A proper response would isolate the host, reset credentials, and review logins, EDR, and network telemetry for lateral movement.</p>
     </section>
 
     <section class="card">
       <h2>Lab 2: DNS beaconing</h2>
-      <p>An endpoint resolves high-entropy domains at a regular interval and makes rare outbound HTTPS connections. Investigate whether the pattern suggests command and control.</p>
+      <p>An endpoint resolves high-entropy domains at a regular interval and makes rare outbound HTTPS connections. This pattern often indicates command-and-control or data staging. Analysts should look for beaconing behaviors, domain reputation, and process lineage.</p>
       <ul>
         <li>Compare interval, jitter, volume, and domain age.</li>
         <li>Correlate DNS, proxy, and endpoint process telemetry.</li>
         <li>Record the indicators you would block or hunt.</li>
+        <li>Which ATT&CK phases would you map to this behavior?</li>
+      </ul>
+      <p><strong>Reasoning:</strong> Regularly timed, low-variance outbound resolution patterns are common in malware beaconing. If the process is a user-mode scripting engine, a signed binary with unusual child processes, or a hidden service, the case becomes much stronger.</p>
+    </section>
+
+    <section class="card">
+      <h2>Lab 3: Lateral movement after discovery</h2>
+      <p>During an investigation, an endpoint starts enumerating local accounts, then successfully logs into a different server over WinRM or SMB using a service account. The attacker may be in the discovery and lateral movement stages.</p>
+      <ul>
+        <li>What evidence confirms remote service use and whether it is legitimate?</li>
+        <li>What would you look for in authentication logs and service account usage?</li>
+        <li>How would you prioritize containment to reduce blast radius?</li>
+      </ul>
+      <p><strong>Reasoning:</strong> Discovery followed by remote service authentication usually indicates the attacker has credentials and is enumerating the environment before moving deeper or collecting data. Analysts should look for unusual source-host pairs, service account logins, and non-standard remote administrative activity.</p>
+    </section>
+
+    <section class="card">
+      <h2>Investigation checklist</h2>
+      <ul>
+        <li>Confirm the user, host, service, and time window first.</li>
+        <li>Correlate endpoint, identity, network, and application telemetry.</li>
+        <li>Map observed behavior to a tactic, technique, and likely objective.</li>
+        <li>Decide whether the event is malicious, benign, or a misconfiguration.</li>
+        <li>Communicate the impact, confidence, and next steps clearly.</li>
       </ul>
     </section>
 

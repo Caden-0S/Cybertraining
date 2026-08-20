@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cybertraining - Flashcards</title>
+  <link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand-mini"><span class="brand-mark"></span>Cybertraining</div>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="../index.html">Home</a>
+      <a href="networking-protocols.html">Networking</a>
+      <a href="mitre.html">MITRE</a>
+      <a href="cyber-kill-chains.html">Kill Chain</a>
+      <a href="web-vulnerabilities-exploits.html">Web Exploits</a>
+      <a href="labs.html">Labs</a>
+      <a href="practice.html">Practice</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="flashcards.html">Flashcards</a>
+    </nav>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">☀️ Light</button>
+  </div>
+
+  <main class="page-shell">
+    <section class="page-hero">
+      <div>
+        <div class="pill">Rapid recall</div>
+        <h1>Flashcards</h1>
+        <p>Flip through concise concept prompts and answers drawn from the networking, MITRE, web, and kill-chain material across the rest of the site.</p>
+      </div>
+    </section>
+
+    <section class="study-card">
+      <div class="quiz-scorebar">
+        <div><strong id="flashcard-index">1</strong> / <span id="flashcard-total">0</span></div>
+        <button class="filter-chip" id="shuffle-cards" type="button">Shuffle</button>
+      </div>
+
+      <div class="flashcard-shell" id="flashcard-shell">
+        <div class="flashcard-inner" id="flashcard-inner">
+          <div class="flashcard-face front">
+            <div class="flashcard-tag" id="flashcard-tag">Topic</div>
+            <p class="flashcard-question" id="flashcard-front">Loading…</p>
+          </div>
+          <div class="flashcard-face back">
+            <div class="flashcard-tag">Answer</div>
+            <p class="flashcard-answer" id="flashcard-back">Loading…</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flashcard-controls">
+        <button type="button" id="prev-card">← Prev</button>
+        <button type="button" class="primary" id="flip-card">Flip</button>
+        <button type="button" id="next-card">Next →</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Coverage</h2>
+      <ul>
+        <li>Core networking protocols and what they are used for.</li>
+        <li>Attack lifecycle stages from reconnaissance to impact.</li>
+        <li>Common web vulnerabilities and how they are exploited.</li>
+        <li>MITRE ATT&CK concepts and analyst interpretation.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Session notes</h2>
+      <p>Write down any card you want to revisit or explain in your own words.</p>
+      <div class="notes-panel" data-notes-key="flashcards">
+        <textarea class="notes-input" placeholder="Write your flashcard notes here..." aria-label="Flashcards notes"></textarea>
+        <div class="notes-actions"><button class="notes-save" type="button">Save notes</button><span class="notes-status" aria-live="polite"></span></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../assets/js/site.js"></script>
+  <script>
+    const FLASHCARDS = [
+      { topic: 'Networking', front: 'What is the main job of TCP?', back: 'TCP provides reliable, ordered delivery of data between hosts using a connection-oriented handshake.' },
+      { topic: 'Networking', front: 'How does UDP differ from TCP?', back: 'UDP is lightweight and connectionless, which makes it faster for DNS, streaming, and real-time traffic but less reliable.' },
+      { topic: 'Networking', front: 'Why is DNS a common place to spot attack activity?', back: 'Attackers often use DNS for lookups to malicious domains, tunneling, or C2, which creates suspicious query patterns.' },
+      { topic: 'MITRE', front: 'What is a tactic in ATT&CK?', back: 'A tactic is the adversary’s goal or objective at a stage of the attack, such as initial access or persistence.' },
+      { topic: 'MITRE', front: 'What is a technique in ATT&CK?', back: 'A technique is the concrete method used to achieve a tactic, such as phishing, PowerShell abuse, or credential dumping.' },
+      { topic: 'Kill Chain', front: 'What happens during reconnaissance?', back: 'The attacker gathers information about the target, such as infrastructure, users, services, and weak points.' },
+      { topic: 'Kill Chain', front: 'Why is interrupting the kill chain valuable?', back: 'Stopping an intrusion early reduces impact because defenders can prevent the attack from escalating into lateral movement or exfiltration.' },
+      { topic: 'Web Security', front: 'What is SQL injection?', back: 'It is an attack where malicious SQL is inserted into an application input to alter or read database queries.' },
+      { topic: 'Web Security', front: 'What is XSS?', back: 'Cross-site scripting injects malicious JavaScript into user-controlled web content, often to steal sessions or perform actions in the browser.' },
+      { topic: 'Labs', front: 'Why do analysts correlate endpoint, identity, and network logs?', back: 'Correlating sources reduces false positives and helps confirm whether a suspicious event is part of a real intrusion chain.' },
+      { topic: 'Practice', front: 'What should an analyst communicate when investigating a suspicious alert?', back: 'They should describe the signal, the likely impact, what evidence supports the conclusion, and the next containment or investigation steps.' },
+      { topic: 'Security basics', front: 'What is defense in depth?', back: 'Defense in depth uses multiple layered controls such as segmentation, patching, detection, and user awareness to reduce risk.' }
+    ];
+
+    let currentIndex = 0;
+    let cards = [...FLASHCARDS];
+    let flipped = false;
+
+    function shuffleCards() {
+      cards = [...FLASHCARDS];
+      for (let i = cards.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [cards[i], cards[j]] = [cards[j], cards[i]];
+      }
+      currentIndex = 0;
+      flipped = false;
+      renderCard();
+    }
+
+    function renderCard() {
+      const current = cards[currentIndex];
+      document.getElementById('flashcard-tag').textContent = current.topic;
+      document.getElementById('flashcard-front').textContent = current.front;
+      document.getElementById('flashcard-back').textContent = current.back;
+      document.getElementById('flashcard-index').textContent = currentIndex + 1;
+      document.getElementById('flashcard-total').textContent = cards.length;
+      document.getElementById('flashcard-shell').classList.toggle('flipped', flipped);
+    }
+
+    function flipCard() {
+      flipped = !flipped;
+      document.getElementById('flashcard-shell').classList.toggle('flipped', flipped);
+    }
+
+    function showNextCard(step) {
+      currentIndex = (currentIndex + step + cards.length) % cards.length;
+      flipped = false;
+      renderCard();
+    }
+
+    document.getElementById('flip-card').addEventListener('click', flipCard);
+    document.getElementById('next-card').addEventListener('click', () => showNextCard(1));
+    document.getElementById('prev-card').addEventListener('click', () => showNextCard(-1));
+    document.getElementById('shuffle-cards').addEventListener('click', shuffleCards);
+    document.getElementById('flashcard-shell').addEventListener('click', flipCard);
+
+    renderCard();
+  </script>
+</body>
+</html>

@@ -27,6 +27,10 @@
       <a href="mitre.html">MITRE</a>
       <a href="cyber-kill-chains.html">Kill Chain</a>
       <a href="web-vulnerabilities-exploits.html">Web Exploits</a>
+      <a href="labs.html">Labs</a>
+      <a href="practice.html">Practice</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="flashcards.html">Flashcards</a>
     </nav>
     <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">☀️ Light</button>
   </div>
@@ -36,40 +40,68 @@
       <div>
         <div class="pill">Threat Modeling</div>
         <h1>Cyber Kill Chains</h1>
-        <p>The cyber kill chain is a model that explains the stages of a cyber intrusion. It helps defenders think in terms of attacker progression and interruption points rather than isolated alerts.</p>
+        <p>The cyber kill chain is a model that explains how an intrusion tends to progress from initial planning to execution and impact. It is a useful framework for defenders because it highlights interruption points: early prevention is usually cheaper and safer than responding after a breach has spread.</p>
       </div>
     </div>
 
     <div class="card">
       <h2>Core concepts</h2>
       <div class="grid">
-        
         <div class="mini">
           <h3>Reconnaissance</h3>
-          <p>The adversary studies the target, learns the environment, and identifies weaknesses, services, and user patterns.</p>
+          <p>The adversary identifies targets, internet-facing services, employees, and weak points. This can include open-source intelligence gathering, employee profiling, or recon using internet exposure, leaked credentials, or public infrastructure.</p>
         </div>
-      
+
         <div class="mini">
           <h3>Weaponization</h3>
-          <p>The attacker combines an exploit with a payload or malicious file that can be delivered to the target.</p>
+          <p>The attacker prepares malicious content or exploit code designed to trigger execution when delivered. This may involve custom malware, document-based payloads, or exploit chains that blend social engineering with technical execution.</p>
         </div>
-      
+
         <div class="mini">
           <h3>Delivery</h3>
-          <p>The malicious payload reaches the victim through phishing, websites, removable media, or compromised software.</p>
+          <p>Malicious content reaches the victim through phishing, malicious links, drive-by downloads, software supply chain compromises, or removable media. Because delivery is where human behavior becomes part of the attack path, awareness and filtering matter a great deal.</p>
         </div>
-      
+
         <div class="mini">
           <h3>Exploitation</h3>
-          <p>The target system runs the malicious code or takes advantage of a vulnerability to establish execution.</p>
+          <p>The target system is tricked into running a malicious payload or exploiting a vulnerability. This stage transitions from malicious content to actual code execution on the victim host or service.</p>
         </div>
-      
+
         <div class="mini">
           <h3>Installation</h3>
-          <p>The attacker establishes persistence, implants malware, or reuses existing compromised credentials.</p>
+          <p>Once execution is established, the adversary installs persistence such as a service, scheduled task, registry run key, or malicious script. Installation helps the attacker survive reboot and continue operating even after initial access appears to be cleaned up.</p>
         </div>
-      
+
+        <div class="mini">
+          <h3>Command and control</h3>
+          <p>Malware begins beaconing out to attacker-controlled infrastructure, receiving instructions, or downloading additional tools. C2 traffic is often low-volume, regular, and disguised as normal application traffic such as HTTP, HTTPS, or DNS.</p>
+        </div>
+
+        <div class="mini">
+          <h3>Actions on objectives</h3>
+          <p>This final stage includes credential theft, privilege escalation, discovery, lateral movement, data collection, or destructive actions. The attacker is no longer just trying to get in; they are executing the purpose of the intrusion.</p>
+        </div>
       </div>
+    </div>
+
+    <div class="card">
+      <h2>Where defenders interrupt the chain</h2>
+      <ul>
+        <li>Block or reduce entry vectors: secure email gateways, application patching, phishing awareness, and external exposure reduction.</li>
+        <li>Hunt for execution and persistence: suspicious PowerShell, scheduled tasks, services, and privilege abuse.</li>
+        <li>Monitor network traffic for beaconing and C2: unusual domains, regular intervals, and abnormal outbound destinations.</li>
+        <li>Contain at the first sign of lateral movement or credential theft before exfiltration or destructive impact occurs.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Verified references</h2>
+      <ul>
+        <li>Lockheed Martin’s cyber kill chain model and later extensions from threat intelligence and incident response practice.</li>
+        <li>MITRE ATT&CK as a modern, behavior-based alternative to linear kill-chain thinking.</li>
+        <li>NIST guidance on intrusion analysis and response lifecycle.</li>
+        <li>CISA and industry playbooks describing intrusion progression, detection opportunities, and containment priorities.</li>
+      </ul>
     </div>
 
     <div class="card">
@@ -84,7 +116,9 @@
     <div class="card">
       <h2>Key takeaways</h2>
       <ul>
-        <li>Interrupting the kill chain early can stop an intrusion before it becomes damaging.</li><li>Detection should focus on key transition points between stages.</li><li>The chain is useful for response planning, not just theory.</li>
+        <li>Kill-chain thinking helps defenders connect early, mid, and late-stage events rather than treating each alert in isolation.</li>
+        <li>Detection should focus on meaningful transition points between stages, not just on malicious hashes alone.</li>
+        <li>Real intrusions rarely follow a perfect sequence; the model is still useful as a mental map for investigation and response.</li>
       </ul>
     </div>
   </div>

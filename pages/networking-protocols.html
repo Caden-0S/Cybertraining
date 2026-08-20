@@ -27,6 +27,10 @@
       <a href="mitre.html">MITRE</a>
       <a href="cyber-kill-chains.html">Kill Chain</a>
       <a href="web-vulnerabilities-exploits.html">Web Exploits</a>
+      <a href="labs.html">Labs</a>
+      <a href="practice.html">Practice</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="flashcards.html">Flashcards</a>
     </nav>
     <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">☀️ Light</button>
   </div>
@@ -36,35 +40,94 @@
       <div>
         <div class="pill">Networking</div>
         <h1>Networking Protocols</h1>
-        <p>Networking protocols are the rules that govern how computers talk to each other. In security work, understanding the protocol stack helps you identify unusual traffic, weak handshakes, spoofing, and protocol abuse.</p>
+        <p>Networking protocols define how hosts identify each other, exchange data, authenticate sessions, and route traffic across networks. In security work, protocol knowledge helps analysts distinguish legitimate behavior from scanning, spoofing, tunneling, credential abuse, or protocol misuse.</p>
       </div>
     </div>
 
     <div class="card">
       <h2>Core concepts</h2>
       <div class="grid">
-        
         <div class="mini">
-          <h3>TCP/IP</h3>
-          <p>The TCP/IP suite is the foundation of modern networking. IP handles addressing and routing, while TCP provides reliable, ordered data delivery and UDP provides low-overhead connectionless transfer.</p>
+          <h3>TCP/IP and the layered model</h3>
+          <p>TCP/IP is the practical foundation of modern internet communications. IP is responsible for addressing and routing packets, while TCP provides reliable, ordered delivery and connection management. UDP offers connectionless transport for latency-sensitive traffic like DNS, VoIP, and streaming.</p>
         </div>
-      
+
+        <div class="mini">
+          <h3>TCP handshake and state</h3>
+          <p>TCP uses a three-way handshake: SYN, SYN-ACK, ACK. This creates a connection before data transfer, which makes it useful for file transfer, web browsing, and remote access. Security teams monitor for abnormal connection bursts, half-open sessions, or unusual ports to detect scanning or service abuse.</p>
+        </div>
+
+        <div class="mini">
+          <h3>UDP and low-latency traffic</h3>
+          <p>UDP is simpler and faster because it does not require connection setup or retransmission. It is widely used by DNS, NTP, DHCP, SNMP, and real-time media. Its lack of reliability and handshake also gives attackers room to spoof traffic, flood endpoints, or hide command-and-control channels.</p>
+        </div>
+
+        <div class="mini">
+          <h3>HTTP and HTTPS</h3>
+          <p>HTTP is the application-layer protocol for web requests and responses. HTTPS adds TLS encryption, which protects content in transit. Analysts still inspect metadata like domains, timing patterns, certificate characteristics, and endpoint behavior because encrypted protocols can still reveal malicious use.</p>
+        </div>
+
         <div class="mini">
           <h3>DNS</h3>
-          <p>DNS converts names to IPs and is often abused for command-and-control, data exfiltration, and domain generation. Look for odd query patterns, high-volume lookups, and suspicious TLDs.</p>
+          <p>DNS resolves names to IP addresses and is a critical service for nearly every application. It is also a frequent attack surface for phishing, tunneling, malware beaconing, and exfiltration. Security teams watch for high-volume lookups, suspicious domain generation, fast-flux patterns, and unusual external resolutions.</p>
         </div>
-      
+
         <div class="mini">
-          <h3>HTTP/HTTPS</h3>
-          <p>HTTP is the application layer protocol used by web traffic. HTTPS adds TLS encryption, making protocol inspection harder but not impossible when TLS termination or analytics are enabled.</p>
+          <h3>DHCP</h3>
+          <p>DHCP leases addresses automatically and can be abused by rogue servers. A malicious DHCP server can set a victim’s gateway or DNS server to attacker-controlled infrastructure, creating a man-in-the-middle path. Defense includes switch port security, DHCP snooping, and validation of legitimate server responses.</p>
         </div>
-      
+
         <div class="mini">
-          <h3>ARP and Layer 2</h3>
-          <p>ARP maps IP to MAC addresses and can be abused in local network attacks such as ARP poisoning. Security analysts look for duplicate responses, strange broadcasts, and unexpected gateway changes.</p>
+          <h3>ARP and local layer attacks</h3>
+          <p>ARP maps IPs to local MAC addresses. Attackers can poison ARP tables to redirect traffic or intercept sessions inside the same subnet. This is especially relevant in flat or poorly segmented networks where local hosts trust one another too easily.</p>
         </div>
-      
+
+        <div class="mini">
+          <h3>SSH, Telnet, and remote administration</h3>
+          <p>SSH is the standard encrypted method for remote administration. Telnet is outdated and insecure because it sends credentials and terminal data without encryption. Modern security baselines should prohibit Telnet and closely review SSH login behavior, unusual forwarding, and source IP reputation.</p>
+        </div>
+
+        <div class="mini">
+          <h3>FTP, SMTP, POP3, and IMAP</h3>
+          <p>FTP historically exposes credentials in clear text; SMTP handles email messaging; POP3 and IMAP control mail retrieval and synchronization. These protocols often appear in operational environments and should be checked for unencrypted traffic, unusual bulk transfers, or repeated authentication failures.</p>
+        </div>
+
+        <div class="mini">
+          <h3>ICMP and NTP</h3>
+          <p>ICMP is used for diagnostics and connectivity checks, while NTP synchronizes clocks across systems. Attackers abuse ICMP for tunneling or covert channels and can use NTP to facilitate reflection or amplify traffic. Secure network design should also monitor for unexpected ICMP scanning and drifted system time.</p>
+        </div>
+
+        <div class="mini">
+          <h3>SNMP and management plane risk</h3>
+          <p>SNMP is used to monitor and configure devices, but weak community strings or exposed write access can expose topology and allow device changes. In many environments, SNMPv3 with strong authentication and ACLs is the correct baseline.</p>
+        </div>
+
+        <div class="mini">
+          <h3>Routing protocols</h3>
+          <p>RIP and OSPF enable route sharing inside networks, but unauthorized route advertisements can redirect traffic or create loops. Proper authentication, trunk filtering, and route validation reduce the chance that a malicious actor alters network paths.</p>
+        </div>
       </div>
+    </div>
+
+    <div class="card">
+      <h2>What analysts look for</h2>
+      <ul>
+        <li>Unexpected outbound connections to uncommon domains, especially with DNS query bursts or long-lived beacons.</li>
+        <li>Repeated failed or successful logins across SSH, RDP, SMTP, or VPN services outside normal business hours.</li>
+        <li>Large file transfers over FTP, SMB, or web protocols that do not match business usage.</li>
+        <li>Rogue DHCP or ARP replies that change gateway or DNS settings on a segment.</li>
+        <li>Port scans, SYN floods, and abnormal ICMP or SNMP traffic inconsistent with the environment.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Verified references</h2>
+      <ul>
+        <li>Internet Engineering Task Force (IETF) RFCs for TCP, UDP, IP, DNS, DHCP, HTTP, SMTP, and SSH.</li>
+        <li>National Institute of Standards and Technology (NIST) guidance on network security, log monitoring, and incident response.</li>
+        <li>CISA and NSA guidance on secure network architecture and protocol hardening.</li>
+        <li>OWASP guidance on web application and transport-layer security patterns.</li>
+      </ul>
     </div>
 
     <div class="card">
@@ -79,7 +142,10 @@
     <div class="card">
       <h2>Key takeaways</h2>
       <ul>
-        <li>TCP provides reliability; UDP is faster and lighter.</li><li>DNS is often the easiest place to spot attacker infrastructure.</li><li>TLS hides payload content but not all metadata patterns.</li><li>Switching, routing, and segmentation reduce lateral movement risk.</li>
+        <li>TCP provides reliability; UDP is faster and lighter.</li>
+        <li>DNS, DHCP, and ARP are classic network-layer abuse points because they are foundational and often trusted.</li>
+        <li>HTTPS hides content but not all metadata; behavior still matters.</li>
+        <li>Segmentation, strict ACLs, and strong authentication materially reduce lateral movement risk.</li>
       </ul>
     </div>
   </div>

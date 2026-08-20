@@ -17,6 +17,8 @@
       <a href="web-vulnerabilities-exploits.html">Web Exploits</a>
       <a href="labs.html">Labs</a>
       <a href="practice.html">Practice</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="flashcards.html">Flashcards</a>
     </nav>
     <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">Light</button>
   </div>
@@ -26,27 +28,41 @@
       <div>
         <div class="pill">Interview preparation</div>
         <h1>Practice</h1>
-        <p>Turn knowledge into concise analyst answers. Use these prompts to rehearse how you would investigate, communicate, and recommend action.</p>
+        <p>Turn knowledge into concise, structured analyst answers. Use these prompts to rehearse how you would investigate, classify behavior, communicate risk, and recommend action with confidence.</p>
       </div>
     </section>
 
     <section class="card">
       <h2>Explain the alert</h2>
-      <p>Describe how you would triage a suspicious PowerShell alert from first signal to confirmed or dismissed incident.</p>
+      <p>Describe how you would triage a suspicious PowerShell alert from first signal to confirmed or dismissed incident. Strong answers show a clear decision path, not just a conclusion.</p>
       <ul>
-        <li>What context would you gather?</li>
-        <li>Which related events would you correlate?</li>
-        <li>How would you communicate confidence and impact?</li>
+        <li>What context would you gather first: user identity, asset ownership, process lineage, or command-line telemetry?</li>
+        <li>Which related events would you correlate: EDR, authentication logs, firewall logs, DNS, or proxy telemetry?</li>
+        <li>How would you assess whether this is malicious, benign automation, or a false positive?</li>
+        <li>How would you communicate confidence, scope, and impact to a stakeholder or incident lead?</li>
       </ul>
+      <p><strong>Model approach:</strong> Start with the asset and user context, establish whether the process is expected, then correlate additional logs to determine if it is isolated or part of a broader intrusion sequence.</p>
     </section>
 
     <section class="card">
       <h2>Map the behavior</h2>
-      <p>Choose one behavior from the topic pages and explain its tactic, technique, evidence sources, and likely defensive control.</p>
+      <p>Choose one behavior from the topic pages and explain its tactic, technique, evidence sources, and likely defensive control. The best answers connect the activity to the adversary’s objective.</p>
       <ul>
         <li>State the attacker objective in plain language.</li>
         <li>Name the telemetry that supports the mapping.</li>
-        <li>Suggest one prevention and one detection measure.</li>
+        <li>Explain what it would look like at each stage of the lifecycle.</li>
+        <li>Suggest one prevention measure and one detection measure.</li>
+      </ul>
+      <p><strong>Example structure:</strong> “This behavior suggests credential access followed by lateral movement because the host performed an abnormal authentication pattern and then connected to a new service account target.”</p>
+    </section>
+
+    <section class="card">
+      <h2>Prioritize response</h2>
+      <p>Imagine a user receives a phishing email, clicks a link, and an office application launches a script that creates a scheduled task. Explain how you would contain the incident while deciding whether to isolate, block, or collect evidence.</p>
+      <ul>
+        <li>What would you isolate first?</li>
+        <li>What evidence must you preserve before cleaning up the endpoint?</li>
+        <li>How would you identify whether the malicious behavior is a single host event or a wider campaign?</li>
       </ul>
     </section>
 

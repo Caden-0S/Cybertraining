@@ -27,6 +27,10 @@
       <a href="mitre.html">MITRE</a>
       <a href="cyber-kill-chains.html">Kill Chain</a>
       <a href="web-vulnerabilities-exploits.html">Web Exploits</a>
+      <a href="labs.html">Labs</a>
+      <a href="practice.html">Practice</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="flashcards.html">Flashcards</a>
     </nav>
     <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">☀️ Light</button>
   </div>
@@ -35,36 +39,64 @@
     <div class="page-hero">
       <div>
         <div class="pill">Frameworks</div>
-        <h1>MITRE</h1>
-        <p>MITRE ATT&CK is a knowledge base of adversary behavior mapped to tactics and techniques. It is widely used to classify attack activity, support detections, and guide incident response and threat hunting.</p>
+        <h1>MITRE ATT&CK</h1>
+        <p>MITRE ATT&CK is a knowledge base of adversary behavior based on observed tactics, techniques, and procedures. It is widely used to classify attack activity, prioritize detections, and support incident response and threat hunting in a common language across security teams.</p>
       </div>
     </div>
 
     <div class="card">
       <h2>Core concepts</h2>
       <div class="grid">
-        
         <div class="mini">
-          <h3>ATT&CK Tactics</h3>
-          <p>Tactics describe the goal of the attacker at a given point, such as initial access, persistence, privilege escalation, discovery, or exfiltration.</p>
+          <h3>Tactics</h3>
+          <p>A tactic describes the attacker’s objective at a specific stage of the intrusion, such as initial access, persistence, privilege escalation, discovery, impact, or exfiltration. Tactics answer the question: “What is the adversary trying to accomplish?”</p>
         </div>
-      
+
         <div class="mini">
-          <h3>ATT&CK Techniques</h3>
-          <p>Techniques are the concrete behavior used to achieve a tactic, such as phishing, credential dumping, scheduled task abuse, or remote service exploitation.</p>
+          <h3>Techniques</h3>
+          <p>A technique is the concrete action used to accomplish a tactic, such as phishing, scheduled task abuse, credential dumping, or lateral movement using SMB. Techniques answer the question: “How do they do it?”</p>
         </div>
-      
+
         <div class="mini">
-          <h3>ATT&CK Matrices</h3>
-          <p>The framework is organized by platform and scope, including enterprise, cloud, mobile, and industrial control systems.</p>
+          <h3>Sub-techniques</h3>
+          <p>Sub-techniques offer more detail within a technique. For example, a broader technique like credential access may include OS credential dumping, brute force, or token theft. This granularity helps defenders map telemetry more precisely.</p>
         </div>
-      
+
+        <div class="mini">
+          <h3>Procedure examples</h3>
+          <p>ATT&CK also includes real-world examples of how adversaries apply these behaviors in practice. This matters because defenders do not just look for abstract ideas; they look for concrete sequences of behavior in their own environment.</p>
+        </div>
+
         <div class="mini">
           <h3>Why it matters</h3>
-          <p>Using ATT&CK lets analysts communicate clearly, map detections to adversary behavior, and build hunting and detection content around real-world attack chains.</p>
+          <p>ATT&CK gives analysts a common vocabulary for discussing intrusions and linking suspicious behavior to likely attacker objectives. It is used in detection engineering, breach analysis, hunt development, and interview prep because it connects alerts to the broader adversary lifecycle.</p>
         </div>
-      
+
+        <div class="mini">
+          <h3>How defenders use it</h3>
+          <p>Teams can map their telemetry to ATT&CK to identify gaps in coverage, prioritize controls, and explain why a behavior matters. A phishing email that leads to PowerShell execution and persistence can be described as a chain of initial access, execution, and persistence across multiple stages.</p>
+        </div>
       </div>
+    </div>
+
+    <div class="card">
+      <h2>ATT&CK in practice</h2>
+      <ul>
+        <li>Detection engineering: identify which logs, process telemetry, and network events correspond to a tactic or technique.</li>
+        <li>Threat hunting: look for sequences such as credential theft followed by remote service logins and suspicious outbound connections.</li>
+        <li>Incident response: explain what happened in adversary terms and how the activity progressed through the environment.</li>
+        <li>Interview preparation: communicate clearly that tactics answer “why” and techniques answer “how” during security discussions.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Verified references</h2>
+      <ul>
+        <li>MITRE ATT&CK website and technique descriptions for enterprise, mobile, and cloud matrices.</li>
+        <li>NIST SP 800-61 for incident response and detection lifecycle best practices.</li>
+        <li>CISA and DHS guidance on adversary behavior and enterprise detection engineering.</li>
+        <li>MITRE ATT&CK mapping and detections published through open-source vendor and community research.</li>
+      </ul>
     </div>
 
     <div class="card">
@@ -79,7 +111,10 @@
     <div class="card">
       <h2>Key takeaways</h2>
       <ul>
-        <li>Tactics answer “why?”</li><li>Techniques answer “how?”</li><li>ATT&CK is useful for both detection engineering and interviews</li><li>Good analysts map alerts to the broader attack lifecycle.</li>
+        <li>Tactics answer “why?”</li>
+        <li>Techniques answer “how?”</li>
+        <li>ATT&CK is useful for both detection engineering and analyst communication.</li>
+        <li>Good analysts map alerts to the broader attack lifecycle rather than viewing them as single stand-alone events.</li>
       </ul>
     </div>
   </div>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cybertraining - Notes</title>
+  <link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand-mini"><span class="brand-mark"></span>Cybertraining</div>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="../index.html">Home</a>
+      <a href="networking-protocols.html">Networking</a>
+      <a href="mitre.html">MITRE</a>
+      <a href="cyber-kill-chains.html">Kill Chain</a>
+      <a href="web-vulnerabilities-exploits.html">Web Exploits</a>
+      <a href="labs.html">Labs</a>
+      <a href="practice.html">Practice</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="flashcards.html">Flashcards</a>
+      <a href="notes.html">Notes</a>
+    </nav>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">☀️ Light</button>
+  </div>
+
+  <main class="page-shell">
+    <section class="page-hero">
+      <div>
+        <div class="pill">Study guide</div>
+        <h1>Study Notes</h1>
+        <p>A single reference page for the most common terms, patterns, and signals you should remember across the rest of the site.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Core concepts</h2>
+      <ul>
+        <li><strong>ATT&CK:</strong> Adversary behavior mapped to tactics and techniques.</li>
+        <li><strong>Tactic:</strong> The attacker’s goal, such as initial access, persistence, or exfiltration.</li>
+        <li><strong>Technique:</strong> The specific method used to achieve that goal.</li>
+        <li><strong>Kill chain:</strong> A staged model showing how intrusions typically progress.</li>
+        <li><strong>Detection engineering:</strong> Building sensor logic and analytics around observable malicious behavior.</li>
+        <li><strong>Defense-in-depth:</strong> Multiple overlapping layers of control to reduce risk and contain failures.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>High-yield signal checklist</h2>
+      <ul>
+        <li>Unexpected logins from new geographies or off-hours hours.</li>
+        <li>PowerShell or script execution from office documents or browsers.</li>
+        <li>Scheduled tasks, services, registry autoruns, or persistence artifacts.</li>
+        <li>Rare DNS lookups to high-entropy domains or suspicious TLDs.</li>
+        <li>Mass file access, archive creation, or large outbound transfers.</li>
+        <li>Unauthorized remote logins or privilege escalation events.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Useful questions to ask</h2>
+      <ul>
+        <li>What is the user, host, and asset owner?</li>
+        <li>Is this expected behavior or a deviation from a known baseline?</li>
+        <li>What is the likely tactic and stage of the intrusion?</li>
+        <li>What telemetry confirms or rejects the hypothesis?</li>
+        <li>What is the immediate containment priority?</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>My notes</h2>
+      <p>Write an executive summary of a suspicious event, the tactic you believe it matches, and the evidence that supports your assessment.</p>
+      <div class="notes-panel" data-notes-key="notes">
+        <textarea class="notes-input" placeholder="Write your study notes here..." aria-label="Study notes"></textarea>
+        <div class="notes-actions"><button class="notes-save" type="button">Save notes</button><span class="notes-status" aria-live="polite"></span></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../assets/js/site.js"></script>
+</body>
+</html>
